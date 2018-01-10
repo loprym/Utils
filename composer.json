@@ -5,6 +5,7 @@
     "keywords": ["utils", "array", "string", "file"],
     "homepage": "https://github.com/loprym/Utils",
     "license": "MIT",
+    "version": "1.0.1",
     "authors": [
 	{
 	    "name": "loprym",
@@ -14,8 +15,8 @@
     ],
     "require": {
 	"php": "^7.1 || ^7.2",
-	"nette/utils": "v2.4.0",
-	"nette/neon": "v2.4.0"
+	"nette/utils": "^v2.4.0",
+	"nette/neon": "^v2.4.0"
     },
     "require-dev": {
 	"nette/tester": "^v2.0.0",
