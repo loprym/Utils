@@ -23,7 +23,7 @@ namespace Loprym;
  */
 interface IArrayable {
 
-    function toArray() : array ;
+    function toArray(): array;
 }
 
 /**
@@ -31,9 +31,9 @@ interface IArrayable {
  *
  * Get the instance as string (serialize)
  */
-interface IStringable{
+interface IStringable {
 
-    function toString() : string ;
+    function toString(): string;
 }
 
 /**
@@ -41,9 +41,9 @@ interface IStringable{
  *
  * Get the instance as neon content (string)
  */
-interface INeonable{
+interface INeonable {
 
-    function toNeon() : string ;
+    function toNeon(): string;
 }
 
 /**
@@ -51,7 +51,27 @@ interface INeonable{
  *
  * Get state of object (whatewer)
  */
-interface IState{
+interface IStateable {
 
-    function getState() : bool;
+    function getState(): bool;
+}
+
+/**
+ * Interface IKeyable
+ *
+ * Get keys or indexes of object
+ */
+interface IKeyable extends \Iterator {
+
+    function getKeys(): array;
+}
+
+/**
+ * Interface IValueable
+ *
+ * Get values of object
+ */
+interface IValueable extends \Iterator {
+
+    function getValues(): array;
 }
