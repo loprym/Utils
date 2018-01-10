@@ -5,7 +5,6 @@
     "keywords": ["utils", "array", "string", "file"],
     "homepage": "https://github.com/loprym/Utils",
     "license": "MIT",
-    "version": "1.0.1",
     "authors": [
 	{
 	    "name": "loprym",
