@@ -23,13 +23,9 @@
 	"tracy/tracy": "^v2.4.0"
     },
     "autoload": {
-	"psr-4": {
-	    "loprym\\": "src/"
-	}
+	"classmap": ["src/"]
     },
     "autoload-dev": {
-	"psr-4": {
-	    "loprym\\tests\\": "tests/"
-	}
+	"classmap": ["tests/"]
     }
 }
