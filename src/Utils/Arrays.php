@@ -21,7 +21,8 @@ namespace Loprym\Utils;
 /**
  * Utils for arrays
  */
-class Arrays extends \Nette\Utils\Arrays {
+class Arrays extends \Nette\Utils\Arrays
+{
 
     /**
      * Recursive convert array to object
@@ -29,15 +30,16 @@ class Arrays extends \Nette\Utils\Arrays {
      * @param string ...$keys arguments as keys
      * @return \stdClass
      */
-    public static function arrayToObject(array $array, string ...$keys) : \stdClass {
-	$object = new \stdClass();
-	$cycle = (empty($keys)) ? \array_keys($array) : self::determineParameters($keys);
-	foreach ($cycle as $key) {
-	    if (isset($array[$key])) {
-		$object->$key = (\is_array($array[$key])) ? self::arrayToObject($array[$key], \implode(',', $keys)) : $array[$key];
-	    }
-	}
-	return $object;
+    public static function arrayToObject(array $array, string ...$keys): \stdClass
+    {
+        $object = new \stdClass();
+        $cycle = (empty($keys)) ? \array_keys($array) : self::determineParameters($keys);
+        foreach ($cycle as $key) {
+            if (isset($array[$key])) {
+                $object->$key = (\is_array($array[$key])) ? self::arrayToObject($array[$key], \implode(',', $keys)) : $array[$key];
+            }
+        }
+        return $object;
     }
 
     /**
@@ -46,17 +48,18 @@ class Arrays extends \Nette\Utils\Arrays {
      * @param string ...$methods enum of object method
      * @return array
      */
-    public static function ObjectToArray(\Traversable $object, string ...$methods): array {
-	$array = [];
-	$cycle = (empty($methods)) ? NULL : \array_flip(self::determineParameters($methods));
-	foreach ($object as $key => $value) {
-	    if ($cycle === NULL || isset($cycle[$key]) || ($value instanceof \Traversable && \is_int($key) && !isset($cycle[$key]))) {
-		$array[$key] = ($value instanceof \Traversable) ?
-			empty($methods) ? self::objectToArray($value) : self::objectToArray($value, \implode(',', $methods)) :
-			$value;
-	    }
-	}
-	return $array;
+    public static function ObjectToArray(\Traversable $object, string ...$methods): array
+    {
+        $array = [];
+        $cycle = (empty($methods)) ? NULL : \array_flip(self::determineParameters($methods));
+        foreach ($object as $key => $value) {
+            if ($cycle === NULL || isset($cycle[$key]) || ($value instanceof \Traversable && \is_int($key) && !isset($cycle[$key]))) {
+                $array[$key] = ($value instanceof \Traversable) ?
+                    empty($methods) ? self::objectToArray($value) : self::objectToArray($value, \implode(',', $methods)) :
+                    $value;
+            }
+        }
+        return $array;
     }
 
 
@@ -66,8 +69,9 @@ class Arrays extends \Nette\Utils\Arrays {
      * @param array $array
      * @return bool
      */
-    public static function keyIsSet($key, $array) : bool {
-	return (isset($array[$key]) || \array_key_exists($key, $array));
+    public static function keyIsSet($key, $array): bool
+    {
+        return (isset($array[$key]) || \array_key_exists($key, $array));
     }
 
     /**
@@ -76,8 +80,9 @@ class Arrays extends \Nette\Utils\Arrays {
      * @param array $haystack
      * @return bool
      */
-    public static function valueIsSet($value, array $haystack) : bool {
-	return \in_array($value, $haystack);
+    public static function valueIsSet($value, array $haystack): bool
+    {
+        return \in_array($value, $haystack);
     }
 
     /**
@@ -86,9 +91,10 @@ class Arrays extends \Nette\Utils\Arrays {
      * @param atring $string
      * @return array
      */
-    public static function explode(array $delimiters, string $string) : array {
-	$ready = \str_replace($delimiters, $delimiters[0], $string);
-	return \array_filter(explode($delimiters[0], $ready));
+    public static function explode(array $delimiters, string $string): array
+    {
+        $ready = \str_replace($delimiters, $delimiters[0], $string);
+        return \array_filter(explode($delimiters[0], $ready));
     }
 
     /**
@@ -96,17 +102,18 @@ class Arrays extends \Nette\Utils\Arrays {
      * @param array $parameters
      * @return array
      */
-    public static function determineParameters($parameters): array {
-	if (\is_array($parameters)) {
-	    $result = (\count($parameters) === 1 && isset($parameters[0]) && \is_string($parameters[0])) ? self::explode([','], $parameters[0]) : $parameters;
-	} else if (\is_string($parameters)) {
-	    $result = self::explode([','], $parameters);
-	}
-	\array_walk($result, function(&$value) {
-	    $value = \trim($value);
-	});
-	return \array_filter($result, function($value) {
-	    return $value !== '';
-	});
+    public static function determineParameters($parameters): array
+    {
+        if (\is_array($parameters)) {
+            $result = (\count($parameters) === 1 && isset($parameters[0]) && \is_string($parameters[0])) ? self::explode([','], $parameters[0]) : $parameters;
+        } else if (\is_string($parameters)) {
+            $result = self::explode([','], $parameters);
+        }
+        \array_walk($result, function (&$value) {
+            $value = \trim($value);
+        });
+        return \array_filter($result, function ($value) {
+            return $value !== '';
+        });
     }
 }

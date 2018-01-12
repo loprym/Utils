@@ -3,7 +3,7 @@
 /**
  * TEST: Path.test
  *
- * @Package SBERP Tests
+ * @Package loprym\Utils
  *
  * @category Test
  * @file Path.test.phpt
@@ -18,7 +18,9 @@
 namespace Loprym\Utils;
 
 use Tester,
-    Tester\Assert;
+    Tester\Assert,
+
+    Loprym\Utils\Path;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -33,7 +35,7 @@ class PathTest extends Tester\TestCase {
 
     const TEST_FILE_NAME = 'whatewer.txt';
 
-    const ABSOLUTE_PATH = __DIR__ . DS . 'Files';
+    const ABSOLUTE_PATH = __DIR__ . DS . 'Files' . DS ;
 
     public function testDownPath(){
 	Assert::same('c:' . DS . 'www' . DS . 'Utils' ,Path::downPath('c:/www/Utils/Files'));

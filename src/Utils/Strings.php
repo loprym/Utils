@@ -21,7 +21,8 @@ namespace Loprym\Utils;
 /**
  * Utils for strings
  */
-class Strings extends \Nette\Utils\Strings {
+class Strings extends \Nette\Utils\Strings
+{
 
     /**
      * cut string TO first occurrence of...
@@ -29,8 +30,9 @@ class Strings extends \Nette\Utils\Strings {
      * @param string $needle
      * @return string
      */
-    public static function cutRight($haystack, $needle) : string {
-	return \Nette\Utils\Strings::substring($haystack, 0, strpos($haystack, $needle));
+    public static function cutRight($haystack, $needle): string
+    {
+        return \Nette\Utils\Strings::substring($haystack, 0, strpos($haystack, $needle));
     }
 
     /**
@@ -39,8 +41,9 @@ class Strings extends \Nette\Utils\Strings {
      * @param string $needle
      * @return string
      */
-    public static function cutLeft($haystack, $needle) : string {
-	return \Nette\Utils\Strings::substring($haystack, strrpos($haystack, $needle) + 1, strlen($haystack));
+    public static function cutLeft($haystack, $needle): string
+    {
+        return \Nette\Utils\Strings::substring($haystack, strrpos($haystack, $needle) + 1, strlen($haystack));
     }
 
     /**
@@ -49,8 +52,9 @@ class Strings extends \Nette\Utils\Strings {
      * @param atring $string
      * @return array
      */
-    public static function explode(array $delimiters, string $string) {
-	return Arrays::explode($delimiters, $string);
+    public static function explode(array $delimiters, string $string)
+    {
+        return Arrays::explode($delimiters, $string);
     }
 
     /**
@@ -60,7 +64,8 @@ class Strings extends \Nette\Utils\Strings {
      * @param type $key
      * @return type
      */
-    public static function generateKey($key) : string {
-	return md5(is_scalar($key) ? (string) $key : serialize($key));
+    public static function generateKey($key): string
+    {
+        return md5(is_scalar($key) ? (string)$key : serialize($key));
     }
 }

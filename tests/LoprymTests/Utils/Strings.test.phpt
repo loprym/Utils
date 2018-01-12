@@ -15,10 +15,12 @@
  * Encoding UTF-8
  */
 
-namespace Loprym\Utils;
+namespace LoprymTests\Utils;
 
 use Tester,
-    Tester\Assert;
+    Tester\Assert,
+
+    Loprym\Utils\Strings;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -50,7 +52,6 @@ class StringsTest extends Tester\TestCase {
     }
 
     function testGenerateKey(){
-	Assert::type('string', Strings::GenerateKey('test'), "generated key muss be string");
 	Assert::same(Strings::GenerateKey('test'),Strings::GenerateKey('test'),"generated keys muss be same");
     }
 }

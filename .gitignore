@@ -1,4 +1,5 @@
-/temp
-/nbproject
-/vendor
-/composer.lock
+./temp
+./idea
+./vendor
+./composer.lock
+./coverage.html

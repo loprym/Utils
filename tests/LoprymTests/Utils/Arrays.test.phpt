@@ -18,7 +18,9 @@
 namespace Loprym\Utils;
 
 use Tester,
-    Tester\Assert;
+    Tester\Assert,
+
+    Loprym\Utils\Arrays;
 
 require __DIR__ . '/../bootstrap.php';
 

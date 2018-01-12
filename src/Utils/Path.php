@@ -22,8 +22,8 @@ namespace Loprym\Utils;
 /**
  * Path and dir manipulation class
  */
-class Path {
-
+class Path
+{
 
 
     /**
@@ -31,10 +31,11 @@ class Path {
      * @param string $path
      * @return string
      */
-    public static function downPath(string $path): string {
-	$tmp = Strings::explode(array('/', '\\'), $path);
-	\array_pop($tmp);
-	return \implode(DIRECTORY_SEPARATOR, $tmp);
+    public static function downPath(string $path): string
+    {
+        $tmp = Strings::explode(array('/', '\\'), $path);
+        \array_pop($tmp);
+        return \implode(DIRECTORY_SEPARATOR, $tmp);
     }
 
     /**
@@ -43,19 +44,20 @@ class Path {
      * @param string $path
      * @return string
      */
-    public static function cleanPath(string $path): string {
-	$tmp = Strings::explode(array('/', '\\'), $path);
-	$previous = NULL;
-	foreach ($tmp as $key => $item) {
-	    if ($item === '..' && $previous != NULL) {
-		unset($tmp[$previous]);
-		unset($tmp[$key]);
-		$previous--;
-	    } else {
-		$previous = $key;
-	    }
-	}
-	return \implode(DIRECTORY_SEPARATOR, $tmp);
+    public static function cleanPath(string $path): string
+    {
+        $tmp = Strings::explode(array('/', '\\'), $path);
+        $previous = NULL;
+        foreach ($tmp as $key => $item) {
+            if ($item === '..' && $previous != NULL) {
+                unset($tmp[$previous]);
+                unset($tmp[$key]);
+                $previous--;
+            } else {
+                $previous = $key;
+            }
+        }
+        return \implode(DIRECTORY_SEPARATOR, $tmp);
     }
 
     /**
@@ -65,13 +67,14 @@ class Path {
      * @param bool $caseSensitive cs on/off
      * @return string|null
      */
-    public static function exist(string $file, $caseSensitive = false): ?string {
-	$simple = \file_exists($file);
-	if ($caseSensitive) {
-	    return ($simple) ? self::caseSensitiveWin($file) : NULL;
-	} else {
-	    return ($simple) ? $file : self::caseInsensitiveUnix($file);
-	}
+    public static function exist(string $file, $caseSensitive = false): ?string
+    {
+        $simple = \file_exists($file);
+        if ($caseSensitive) {
+            return ($simple) ? self::caseSensitiveWin($file) : NULL;
+        } else {
+            return ($simple) ? $file : self::caseInsensitiveUnix($file);
+        }
     }
 
     /**
@@ -79,15 +82,16 @@ class Path {
      * @param string $file
      * @return string|null
      */
-    private static function caseSensitiveWin(string $file): ?string {
-	$fileName = basename($file);
-	//dump( 'zaklad' . $filename);
-	foreach (\glob(\dirname($file) . DIRECTORY_SEPARATOR .'*', GLOB_NOSORT) as $item) {
-	    if (\basename($item) === $fileName) {
-		return $file;
-	    }
-	}
-	return NULL;
+    private static function caseSensitiveWin(string $file): ?string
+    {
+        $fileName = basename($file);
+        //dump( 'zaklad' . $filename);
+        foreach (\glob(\dirname($file) . DIRECTORY_SEPARATOR . '*', GLOB_NOSORT) as $item) {
+            if (\basename($item) === $fileName) {
+                return $file;
+            }
+        }
+        return NULL;
     }
 
     /**
@@ -95,13 +99,14 @@ class Path {
      * @param type $file
      * @return string|null
      */
-    private static function caseInsensitiveUnix(string $file): ?string {
-	$fileLC = \strtolower($file);
-	foreach (\glob(\dirname($file) . DIRECTORY_SEPARATOR .'*', GLOB_NOSORT) as $item) {
-	    if (\strtolower($item) === $fileLC) {
-		return $item;
-	    }
-	}
-	return NULL;
+    private static function caseInsensitiveUnix(string $file): ?string
+    {
+        $fileLC = \strtolower($file);
+        foreach (\glob(\dirname($file) . DIRECTORY_SEPARATOR . '*', GLOB_NOSORT) as $item) {
+            if (\strtolower($item) === $fileLC) {
+                return $item;
+            }
+        }
+        return NULL;
     }
 }

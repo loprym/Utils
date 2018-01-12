@@ -61,8 +61,8 @@ class Neon implements \Loprym\INeonable, \Loprym\IArrayable, Loprym\IStringable 
     /**
      * Get the instance as neon content
      * @return array
-     * @throws Nette\Neon\Exception
-     * @throws Nette\IOException
+     * @throws \Nette\Neon\Exception
+     * @throws \Nette\IOException
      */
     public function toArray() : array {
 	return \Nette\Neon\Neon::decode($this->toNeon());
@@ -71,8 +71,8 @@ class Neon implements \Loprym\INeonable, \Loprym\IArrayable, Loprym\IStringable 
     /**
      * Get the instance as serialized string
      * @return string
-     * @throws Nette\Neon\Exception
-     * @throws Nette\IOException
+     * @throws \Nette\Neon\Exception
+     * @throws \Nette\IOException
      */
     public function toString() : string{
 	return \serialize($this->toNeon());
@@ -81,8 +81,8 @@ class Neon implements \Loprym\INeonable, \Loprym\IArrayable, Loprym\IStringable 
     /**
      * Get the instance as neon format content
      * @return string
-     * @throws Nette\Neon\Exception
-     * @throws Nette\IOException
+     * @throws \Nette\Neon\Exception
+     * @throws \Nette\IOException
      */
     public function toNeon() : string {
 	if (!isset($this->content)){

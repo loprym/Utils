@@ -1,14 +1,14 @@
 <?php
 
 /**
- * TEST: Parser.test
+ * TEST: Neon.test
  *
- * @Package SBERP Tests
+ * @Package loprym\Utils
  *
  * @category Test
- * @file Parser.test.phpt
+ * @file Neon.test.phpt
  * @author Jaromír Polášek
- * @version 1.2 NEON RC 2
+ * @version 1.2
  *
  * @since 17.10.2017
  *
@@ -18,7 +18,9 @@
 namespace Loprym\Utils;
 
 use Tester,
-    Tester\Assert;
+    Tester\Assert,
+
+    Loprym\Utils\Neon;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -29,7 +31,7 @@ define("DS", DIRECTORY_SEPARATOR);
  */
 class NeonTest extends Tester\TestCase {
 
-    const FULL_PATH_AND_FILE = __DIR__ . DS.'Files'. DS . 'whatewer.neon',
+    const FULL_PATH_AND_FILE = __DIR__ . DS .'Files'. DS . 'whatewer.neon',
 	    BASENAME = 'whatewer',
 	    PATH = DS . 'Files' . DS,
 	    EXP = '.neon';
