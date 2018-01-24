@@ -19,8 +19,14 @@
 namespace Loprym;
 
 /**
+ * Interface IExportable
+ * @package Loprym
+ */
+interface IExportable extends IArrayable, INeonable, IStringable {}
+
+/**
  * Interface IContainer
  *
- * 
+ * @package Loprym
  */
-interface IContainer extends \ArrayAccess, \Countable, \Serializable, \Traversable, \Loprym\IArrayable{}
+interface IContainer extends \ArrayAccess, \Countable, \Serializable, \Traversable, IArrayable{}

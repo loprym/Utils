@@ -23,7 +23,7 @@ namespace Loprym;
  */
 interface IArrayable {
 
-    function toArray(): array;
+    public function toArray(): array;
 }
 
 /**
@@ -33,7 +33,7 @@ interface IArrayable {
  */
 interface IStringable {
 
-    function toString(): string;
+    public function toString(): string;
 }
 
 /**
@@ -43,7 +43,7 @@ interface IStringable {
  */
 interface INeonable {
 
-    function toNeon(): string;
+    public function toNeon(): string;
 }
 
 /**
@@ -53,7 +53,7 @@ interface INeonable {
  */
 interface IStateable {
 
-    function getState(): bool;
+    public function getState(): bool;
 }
 
 /**
@@ -63,7 +63,7 @@ interface IStateable {
  */
 interface IKeyable extends \Iterator {
 
-    function getKeys(): array;
+    public function getKeys(): array;
 }
 
 /**
@@ -73,5 +73,5 @@ interface IKeyable extends \Iterator {
  */
 interface IValueable extends \Iterator {
 
-    function getValues(): array;
+    public function getValues(): array;
 }
