@@ -18,11 +18,12 @@
 
 namespace Loprym;
 
+
 /**
  * Interface IExportable
  * @package Loprym
  */
-interface IExportable extends IArrayable, INeonable, IStringable {}
+interface IExportable extends IArrayable, IStringable {}
 
 /**
  * Interface IContainer
