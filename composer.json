@@ -24,14 +24,14 @@
   },
   "require-dev": {
     "nette/tester": "^v2.0.0",
+    "nette/bootstrap": "^v2.4.2",
     "nette/robot-loader": "^v2.4.2",
     "tracy/tracy": "^v2.4.0"
   },
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "Loprym\\Utils\\": "src/Utils/",
-      "Loprym\\": "src/Interfaces/"
+      "Loprym\\": "src/"
     }
   }
 }

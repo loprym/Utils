@@ -30,4 +30,4 @@ interface IExportable extends IArrayable, IStringable {}
  *
  * @package Loprym
  */
-interface IContainer extends \ArrayAccess, \Countable, \Serializable, \Traversable, IArrayable {}
+interface IContainer extends \ArrayAccess, \Countable, \Serializable, \Traversable, \Iterator, IArrayable {}

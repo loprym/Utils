@@ -26,15 +26,16 @@ use Loprym,
  * @property-read string $path path to file
  * @property-read int $timestamp last update time
  */
-class Neon implements \Loprym\INeonable, \Loprym\IArrayable, Loprym\IStringable {
+class Neon{
 
     use SmartObject;
 
     const EXP = '.neon';
 
-    /** @var string $source File content */
+    /** @var string File content */
     private $source = NULL;
 
+    /** @var array of row data */
     private $content = NULL;
 
     /**
@@ -50,6 +51,32 @@ class Neon implements \Loprym\INeonable, \Loprym\IArrayable, Loprym\IStringable 
 	$this->source = Path::cleanPath($pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['basename']);
     }
 
+    public function __destruct()
+    {
+        $this->write();
+    }
+
+    /**
+     * @param  string
+     * @return ActiveRow|mixed
+     * @throws Nette\MemberAccessException
+     */
+    public function &__get($key)
+    {
+        if ($this->accessColumn($key)) {
+            return $this->data[$key];
+        }
+
+        $referenced = $this->table->getReferencedTable($this, $key);
+        if ($referenced !== false) {
+            $this->accessColumn($key, false);
+            return $referenced;
+        }
+
+        $this->removeAccessColumn($key);
+        $hint = Nette\Utils\ObjectMixin::getSuggestion(array_keys($this->data), $key);
+        throw new Nette\MemberAccessException("Cannot read an undeclared column '$key'" . ($hint ? ", did you mean '$hint'?" : '.'));
+    }
     /**
      * Get the path to the file
      * @return string
