@@ -16,18 +16,13 @@
  * Encoding UTF-8
  */
 
-namespace Loprym;
-
-
-/**
- * Interface IExportable
- * @package Loprym
- */
-interface IExportable extends IArrayable, IStringable {}
+namespace Loprym\Interfaces;
 
 /**
  * Interface IContainer
  *
  * @package Loprym
  */
-interface IContainer extends \ArrayAccess, \Countable, \Serializable, \Traversable, \Iterator, IArrayable {}
+interface IContainer extends \ArrayAccess, \Countable, \Serializable, \Traversable, \Iterator, IGetArray, IGetKeys, IGetValues
+{
+}

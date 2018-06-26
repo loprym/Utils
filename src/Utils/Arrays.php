@@ -9,7 +9,7 @@
  *
  * @file Arrays
  * @author loprym
- * @version 1.0 RC1
+ * @version 1.2
  *
  * @since 3.11.2017
  *
@@ -19,7 +19,8 @@
 namespace Loprym\Utils;
 
 /**
- * Utils for arrays
+ * Class Arrays
+ * @package Loprym\Utils
  */
 class Arrays extends \Nette\Utils\Arrays
 {
@@ -86,9 +87,9 @@ class Arrays extends \Nette\Utils\Arrays
     }
 
     /**
-     * Explode multiple delimiters
+     * Explode by multiple delimiters
      * @param array $delimiters
-     * @param atring $string
+     * @param string $string
      * @return array
      */
     public static function explode(array $delimiters, string $string): array
@@ -99,7 +100,7 @@ class Arrays extends \Nette\Utils\Arrays
 
     /**
      * parse string 'key1, key2, ...' as array
-     * @param array $parameters
+     * @param array |string $parameters
      * @return array
      */
     public static function determineParameters($parameters): array
@@ -109,11 +110,24 @@ class Arrays extends \Nette\Utils\Arrays
         } else if (\is_string($parameters)) {
             $result = self::explode([','], $parameters);
         }
+
         \array_walk($result, function (&$value) {
             $value = \trim($value);
         });
+
         return \array_filter($result, function ($value) {
             return $value !== '';
         });
+    }
+
+    /**
+     * array don't have numeric keys and staring from 0
+     * @param array $array
+     * @return bool
+     */
+    public static function isAssoc(array $array)
+    {
+        if (array() === $array) return false;
+        return array_keys($array) !== range(0, count($array) - 1);
     }
 }

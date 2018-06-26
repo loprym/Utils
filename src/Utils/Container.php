@@ -18,22 +18,26 @@
 
 namespace Loprym\Utils;
 
-use Loprym;
+use Loprym\Traits\TContainer;
+use Loprym\Interfaces\IContainer;
 
 /**
  * Basic implementation of ArrayAccess, traversable (iterator) and count. work with iterable object
  *
+ * @property-read array $keys - Get object keys
+ * @property-read array $values - Get object values
+ * @property-read
  */
-abstract class Container implements \ArrayAccess, \Iterator, \Countable
+abstract class Container implements IContainer
 {
 
-    use Loprym\Traits\TContainer;
+    use TContainer;
 
     /**
      * It is possible use whatever iterable you want
      * @param iterable $container
      */
-    public function __construct(iterable $container = NULL)
+    public function __construct($container = NULL)
     {
         if (isset($container)) {
             $this->container = $container;

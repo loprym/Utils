@@ -1,7 +1,7 @@
 {
   "name": "loprym/utils",
   "type": "library",
-  "description": "Extensions of nette/utils for some projects.",
+  "description": "Extensions of nette/utils for some of my projects.",
   "keywords": [
     "utils",
     "array",
@@ -14,11 +14,12 @@
     {
       "name": "loprym",
       "email": "loprym@gmail.com",
+      "homepage": "http://github.com/loprym",
       "role": "Developer"
     }
   ],
   "require": {
-    "php": "^7.1 || ^7.2",
+    "php": "^7.0",
     "nette/utils": "^v2.4.0",
     "nette/neon": "^v2.4.0"
   },
@@ -26,12 +27,14 @@
     "nette/tester": "^v2.0.0",
     "nette/bootstrap": "^v2.4.2",
     "nette/robot-loader": "^v2.4.2",
-    "tracy/tracy": "^v2.4.0"
+    "tracy/tracy": "^v2.4.0",
+    "phpunit/phpunit": "6.5.8"
   },
   "minimum-stability": "dev",
   "autoload": {
-    "psr-4": {
-      "Loprym\\": "src/"
-    }
+    "classmap": [
+      "src/",
+      "tests/"
+    ]
   }
 }

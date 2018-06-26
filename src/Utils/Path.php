@@ -18,13 +18,11 @@
 
 namespace Loprym\Utils;
 
-
 /**
  * Path and dir manipulation class
  */
 class Path
 {
-
 
     /**
      * Decrease path by one level
@@ -46,10 +44,10 @@ class Path
      */
     public static function cleanPath(string $path): string
     {
-        $tmp = Strings::explode(array('/', '\\'), $path);
+        $tmp = Strings::explode(['/', '\\'], $path);
         $previous = NULL;
         foreach ($tmp as $key => $item) {
-            if ($item === '..' && $previous != NULL) {
+            if ($item === '..' && $previous !== NULL) {
                 unset($tmp[$previous]);
                 unset($tmp[$key]);
                 $previous--;
@@ -57,7 +55,10 @@ class Path
                 $previous = $key;
             }
         }
-        return \implode(DIRECTORY_SEPARATOR, $tmp);
+        $result = \implode(DIRECTORY_SEPARATOR, $tmp);
+        if (isset($result[1]) && $result[1] !== ':' && $result[0] !== '/')
+            $result = DIRECTORY_SEPARATOR . $result;
+        return $result;
     }
 
     /**
@@ -65,13 +66,13 @@ class Path
      * default case-insensitive
      * @param string $file File Name
      * @param bool $caseSensitive cs on/off
-     * @return string|null
+     * @return string|bool
      */
-    public static function exist(string $file, $caseSensitive = false): ?string
+    public static function exist(string $file, $caseSensitive = false)
     {
         $simple = \file_exists($file);
         if ($caseSensitive) {
-            return ($simple) ? self::caseSensitiveWin($file) : NULL;
+            return ($simple) ? self::caseSensitiveWin($file) : false;
         } else {
             return ($simple) ? $file : self::caseInsensitiveUnix($file);
         }
@@ -80,26 +81,25 @@ class Path
     /**
      * Windows case sensitive file compare
      * @param string $file
-     * @return string|null
+     * @return string| bool
      */
-    private static function caseSensitiveWin(string $file): ?string
+    private static function caseSensitiveWin(string $file)
     {
         $fileName = basename($file);
-        //dump( 'zaklad' . $filename);
         foreach (\glob(\dirname($file) . DIRECTORY_SEPARATOR . '*', GLOB_NOSORT) as $item) {
             if (\basename($item) === $fileName) {
                 return $file;
             }
         }
-        return NULL;
+        return false;
     }
 
     /**
      * Unix case insensitive file compare
-     * @param type $file
-     * @return string|null
+     * @param string $file
+     * @return string|bool
      */
-    private static function caseInsensitiveUnix(string $file): ?string
+    private static function caseInsensitiveUnix(string $file)
     {
         $fileLC = \strtolower($file);
         foreach (\glob(\dirname($file) . DIRECTORY_SEPARATOR . '*', GLOB_NOSORT) as $item) {
@@ -107,6 +107,6 @@ class Path
                 return $item;
             }
         }
-        return NULL;
+        return false;
     }
 }

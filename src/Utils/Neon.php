@@ -18,15 +18,22 @@
 
 namespace Loprym\Utils;
 
-use Loprym,
+use Loprym\Interfaces\IGetArray;
+use Loprym\Interfaces\IToString;
+use
     Nette\SmartObject;
 
 /**
- * Object of neon file
- * @property-read string $path path to file
- * @property-read int $timestamp last update time
+ * Class Neon
+ * @package Loprym\Utils
+ *
+ * @property-read string $path
+ * @property-read int $timestamp
+ * @property-read array $array
+ * @property-read string $neon
  */
-class Neon{
+class Neon implements IGetArray, IToString
+{
 
     use SmartObject;
 
@@ -40,49 +47,25 @@ class Neon{
 
     /**
      * @param string $dir path to dir or path to file
-     * @param string $file (optional) if is not includet in first parameter
+     * @param string $file (optional) if is not included in first parameter
      */
-    public function __construct(string $dir, string $file = NULL) {
-	$path = ($file === NULL) ? $dir : $dir . DIRECTORY_SEPARATOR . $file;
-	$pathInfo = \pathinfo($path);
-	if (!isset($pathInfo['extension'])){
-	    $pathInfo = \pathinfo($path . self::EXP);
-	}
-	$this->source = Path::cleanPath($pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['basename']);
-    }
-
-    public function __destruct()
+    public function __construct(string $dir, string $file = NULL)
     {
-        $this->write();
+        $path = ($file === NULL) ? $dir : $dir . DIRECTORY_SEPARATOR . $file;
+        $pathInfo = \pathinfo($path);
+        if (!isset($pathInfo['extension'])) {
+            $pathInfo = \pathinfo($path . self::EXP);
+        }
+        $this->source = Path::cleanPath($pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['basename']);
     }
 
-    /**
-     * @param  string
-     * @return ActiveRow|mixed
-     * @throws Nette\MemberAccessException
-     */
-    public function &__get($key)
-    {
-        if ($this->accessColumn($key)) {
-            return $this->data[$key];
-        }
-
-        $referenced = $this->table->getReferencedTable($this, $key);
-        if ($referenced !== false) {
-            $this->accessColumn($key, false);
-            return $referenced;
-        }
-
-        $this->removeAccessColumn($key);
-        $hint = Nette\Utils\ObjectMixin::getSuggestion(array_keys($this->data), $key);
-        throw new Nette\MemberAccessException("Cannot read an undeclared column '$key'" . ($hint ? ", did you mean '$hint'?" : '.'));
-    }
     /**
      * Get the path to the file
      * @return string
      */
-    public function getPath() : string {
-	return $this->source;
+    public function getPath(): string
+    {
+        return $this->source;
     }
 
     /**
@@ -91,38 +74,38 @@ class Neon{
      * @throws \Nette\Neon\Exception
      * @throws \Nette\IOException
      */
-    public function toArray() : array {
-	return \Nette\Neon\Neon::decode($this->toNeon());
-    }
-
-    /**
-     * Get the instance as serialized string
-     * @return string
-     * @throws \Nette\Neon\Exception
-     * @throws \Nette\IOException
-     */
-    public function toString() : string{
-	return \serialize($this->toNeon());
+    public function getArray(): array
+    {
+        return \Nette\Neon\Neon::decode($this->getNeon());
     }
 
     /**
      * Get the instance as neon format content
      * @return string
-     * @throws \Nette\Neon\Exception
-     * @throws \Nette\IOException
+     *
      */
-    public function toNeon() : string {
-	if (!isset($this->content)){
-	    $this->content = \Nette\Utils\FileSystem::read($this->source);
-	}
-	return $this->content;
+    public function getNeon(): string
+    {
+        if (!isset($this->content)) {
+            $this->content = \Nette\Utils\FileSystem::read($this->source);
+        }
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getNeon();
     }
 
     /**
      * Get the last update of file
      * @return int timestamp
      */
-    public function getTimestamp() : int{
-	return \filemtime($this->source);
+    public function getTimestamp(): int
+    {
+        return \filemtime($this->source);
     }
 }

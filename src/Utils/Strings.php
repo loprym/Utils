@@ -9,7 +9,7 @@
  *
  * @file Strings
  * @author loprym
- * @version 1.0 RC1
+ * @version 1.2
  *
  * @since 3.11.2017
  *
@@ -18,8 +18,10 @@
 
 namespace Loprym\Utils;
 
+
 /**
- * Utils for strings
+ * Class Strings
+ * @package Loprym\Utils
  */
 class Strings extends \Nette\Utils\Strings
 {
@@ -49,20 +51,20 @@ class Strings extends \Nette\Utils\Strings
     /**
      * Explode multiple delimiters
      * @param array $delimiters
-     * @param atring $string
+     * @param string $string
      * @return array
      */
-    public static function explode(array $delimiters, string $string)
+    public static function explode(array $delimiters, string $string): array
     {
         return Arrays::explode($delimiters, $string);
     }
 
     /**
      * Calculate the md5 hash of a string
-     * accesing (coping) usefull protected method from Nette\Caching\Casche
+     * accessing (coping) use-full protected method from Nette\Caching\Casche
      * @copyright Copyright (c) 2004 David Grudl (https://davidgrudl.com)
-     * @param type $key
-     * @return type
+     * @param mixed $key
+     * @return string
      */
     public static function generateKey($key): string
     {

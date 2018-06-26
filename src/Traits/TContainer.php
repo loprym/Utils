@@ -27,11 +27,13 @@ use Nette\SmartObject;
  * @property-read array $keys
  * @property-read array $values
  * @property-read int $count
+ * @property-read array $array
  */
 trait TContainer
 {
 
     use SmartObject;
+
     /** @var iterable $container data container */
     protected $container = [];
 
@@ -131,7 +133,7 @@ trait TContainer
         }else {
             //hard way
             $result = 0;
-            foreach ($this->container as $item){
+            foreach ($this->container as $i) {
                 $result++;
             }
             return $result;
@@ -146,7 +148,7 @@ trait TContainer
      *  Rewind the Iterator to the first element
      * @return void
      */
-    public function rewind(): void
+    public function rewind()
     {
         $this->position = 0;
     }
@@ -175,7 +177,7 @@ trait TContainer
      * Move forward to next element
      * @return void
      */
-    public function next(): void
+    public function next()
     {
         ++$this->position;
     }
@@ -194,7 +196,7 @@ trait TContainer
      * Convert object to array
      * @return array
      */
-    public function toArray(): array
+    public function getArray(): array
     {
         if (is_array($this->container)) {
             return $this->container;
@@ -215,7 +217,7 @@ trait TContainer
     /**
      * store actual keys for foreach-ing etc...
      */
-    private function prepareKeys(): void
+    private function prepareKeys()
     {
         if ($this->keys === NULL) {
             $this->keys = $this->getKeys();
@@ -225,7 +227,7 @@ trait TContainer
     /**
      * Non array object only
      */
-    private function setKeyAndValue(): void
+    private function setKeyAndValue()
     {
         $array = $this->$this->toArray();
         $this->keys = array_keys($array);
